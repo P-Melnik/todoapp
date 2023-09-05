@@ -24,24 +24,30 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(
-            name="users_roles",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-    private List<Role> roles = new ArrayList<>();
+    @OneToMany
+    private List<Todo> todoList;
+
 
     public User() {
     }
 
-    public User(long id, String firstName, String lastName, String userName, String email, String password, List<Role> roles) {
+    public User(String firstName, String lastName,
+                String userName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(long id, String firstName, String lastName,
+                String userName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public long getId() {
@@ -92,11 +98,4 @@ public class User {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 }

@@ -1,4 +1,4 @@
-package melnik.learning.todolist.todolist.config;
+package melnik.learning.todolist.todolist.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -37,8 +37,9 @@ public class Security {
                         .authenticated())
                 .formLogin(formLogin ->
                         formLogin
-                        .loginPage("/login")
-                        .permitAll());
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/user_page")
+                                .permitAll());
 //                .logout(logout -> logout
 //                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //                                .permitAll());
