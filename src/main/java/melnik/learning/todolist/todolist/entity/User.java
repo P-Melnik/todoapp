@@ -1,9 +1,11 @@
 package melnik.learning.todolist.todolist.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -17,35 +19,29 @@ public class User {
     private String firstName;
     @Column(name = "lastName", nullable = false)
     private String lastName;
-    @Column(name = "userName", nullable = false, unique = true)
-    private String userName;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany
-    private List<Todo> todoList;
-
+    @ManyToMany(cascade=CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Collection<Role> roles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName,
-                String userName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
         this.email = email;
         this.password = password;
     }
 
-    public User(long id, String firstName, String lastName,
-                String userName, String email, String password) {
+    public User(long id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
         this.email = email;
         this.password = password;
     }
@@ -74,14 +70,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -96,6 +84,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
 }
