@@ -17,7 +17,10 @@ public class Todo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Todo(String description, boolean completed, User user) {
+    public Todo() {
+    }
+
+    public Todo(String description, boolean completed, long user_id, User user) {
         this.description = description;
         this.completed = completed;
         this.user = user;
@@ -51,7 +54,7 @@ public class Todo {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser_id(User user) {
         this.user = user;
     }
 }

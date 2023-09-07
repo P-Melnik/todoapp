@@ -25,8 +25,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+//    @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Role> roles;
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)

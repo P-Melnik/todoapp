@@ -21,16 +21,4 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/greet")
-    public String greet(Model model) {
-        model.addAttribute("something", "text from thymeleaf");
-        model.addAttribute("tutor", Arrays.asList(
-                new tutor(1, "a"),
-                new tutor(2, "b"),
-                new tutor(3, "c")
-        ));
-        return "greet";
-    }
-
-
 }
