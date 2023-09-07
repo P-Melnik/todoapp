@@ -1,10 +1,8 @@
 package melnik.learning.todolist.todolist.controllers;
 
-import melnik.learning.todolist.todolist.entity.tutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;

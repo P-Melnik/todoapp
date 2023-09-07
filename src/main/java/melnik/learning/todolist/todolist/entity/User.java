@@ -6,6 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -27,6 +28,9 @@ public class User {
     @ManyToMany(cascade=CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Role> roles;
+
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Todo> todos;
 
     public User() {
     }

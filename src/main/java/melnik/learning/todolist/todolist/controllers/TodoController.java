@@ -1,6 +1,8 @@
 package melnik.learning.todolist.todolist.controllers;
 
+import melnik.learning.todolist.todolist.entity.Todo;
 import melnik.learning.todolist.todolist.entity.User;
+import melnik.learning.todolist.todolist.repository.TodoRepository;
 import melnik.learning.todolist.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,28 +11,37 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/user/todo")
+public class TodoController {
 
+    @Autowired
+    private TodoRepository todoRepository;
     @Autowired
     private UserRepository userRepository;
 
-    // Principal helps to retrieve user information in Spring Security
+
     @ModelAttribute("user")
     public User getUser(Principal principal) {
         return userRepository.findByEmail(principal.getName());
     }
 
-    @GetMapping
-    public String getUserPage(@ModelAttribute("user") User user) {
-        return "user_page";
+//    @ModelAttribute("todos")
+//    public List<Todo> getTodoList(@ModelAttribute("user") User user) {
+//        return todoRepository.findAllByUserId(user.getId());
+//    }
+
+    @GetMapping()
+    public String getTodos(@ModelAttribute("user") User user) {
+        return "user_todos";
     }
 
-    @GetMapping("/statistic")
-    public String getStatistic(@ModelAttribute("user") User user) {
-        return "user_statistic";
+    // make redirect to /user/todos
+    @GetMapping("/create")
+    public String getCreateTodo(@ModelAttribute("user") User user) {
+        return "user_todo_create";
     }
 
 }
