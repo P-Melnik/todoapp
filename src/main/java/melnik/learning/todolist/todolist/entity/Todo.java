@@ -8,7 +8,7 @@ public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String description;
     private boolean completed = false;
@@ -20,17 +20,17 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String description, boolean completed, long user_id, User user) {
+    public Todo(String description, boolean completed, User user) {
         this.description = description;
         this.completed = completed;
         this.user = user;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,4 +57,5 @@ public class Todo {
     public void setUser_id(User user) {
         this.user = user;
     }
+
 }

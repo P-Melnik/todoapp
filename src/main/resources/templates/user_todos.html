@@ -73,8 +73,8 @@
                 </div>
             </td>
             <td>
-<!--                th:href="@{/user/todo/{todoId}(todoId=${todo.id}/edit"-->
-                <button class="btn btn-primary btn-sm" )>Edit</button>
+<!--                th:field= th:action="@{/user/todo/{todoId}(todoId=${todo.id})/edit}" -->
+                    <a th:href="@{/user/todo/{todoId}/edit(todoId = ${todo.id})}" type="submit" class="btn btn-primary btn-sm">Edit</a>
                 <button class="btn btn-success btn-sm" onclick="">Save</button>
                 <button class="btn btn-danger btn-sm" onclick="">Delete</button>
             </td>

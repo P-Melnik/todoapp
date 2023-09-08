@@ -7,10 +7,7 @@ import melnik.learning.todolist.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -56,5 +53,18 @@ public class TodoController {
         todoRepository.save(todo);
         return "redirect:/user/todo";
     }
+
+    @GetMapping("/{todoId}/edit")
+    public String getEditTodo(@PathVariable("todoId") long id,
+                              Model model) {
+        Todo todo = new Todo();
+        if (todoRepository.existsById(id)) {
+            todo = todoRepository.findById(id).get();
+        }
+        model.addAttribute("todo", todo);
+        return "user_todo_edit";
+    }
+
+
 
 }
