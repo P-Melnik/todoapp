@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user/todo")
@@ -26,11 +26,6 @@ public class TodoController {
     public User getUser(Principal principal) {
         return userRepository.findByEmail(principal.getName());
     }
-
-//    @ModelAttribute("todo")
-//    public Todo getTodoList() {
-//        return new Todo();
-//    }
 
     @GetMapping()
     public String getTodos(@ModelAttribute("user") User user,
@@ -49,22 +44,26 @@ public class TodoController {
     @PostMapping("/create")
     public String saveTodo(@ModelAttribute("user") User user,
                            @ModelAttribute("todo") Todo todo) {
-        todo.setUser_id(user);
-        todoRepository.save(todo);
+            todo.setUser_id(user);
+            todoRepository.save(todo);
         return "redirect:/user/todo";
     }
 
     @GetMapping("/{todoId}/edit")
     public String getEditTodo(@PathVariable("todoId") long id,
                               Model model) {
-        Todo todo = new Todo();
-        if (todoRepository.existsById(id)) {
-            todo = todoRepository.findById(id).get();
-        }
-        model.addAttribute("todo", todo);
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        optionalTodo.ifPresent(todo -> model.addAttribute("todo", todo));
         return "user_todo_edit";
     }
 
-
+    @PostMapping("/{todoId}/edit")
+    public String editTodo(@PathVariable("todoId") long id,
+                           @ModelAttribute("todo") Todo todo,
+                           @RequestParam("description") String description) {
+        String newString = description;
+        todoRepository.edit(id, newString);
+        return "redirect:/user/todo";
+    }
 
 }
