@@ -44,8 +44,8 @@ public class TodoController {
     @PostMapping("/create")
     public String saveTodo(@ModelAttribute("user") User user,
                            @ModelAttribute("todo") Todo todo) {
-            todo.setUser_id(user);
-            todoRepository.save(todo);
+        todo.setUser_id(user);
+        todoRepository.save(todo);
         return "redirect:/user/todo";
     }
 
@@ -66,4 +66,19 @@ public class TodoController {
         return "redirect:/user/todo";
     }
 
+    @PostMapping("/{todoId}/delete")
+    public String deleteTodo(@PathVariable("todoId") long id) {
+        todoRepository.deleteById(id);
+        return "redirect:/user/todo";
+    }
+
+    @PostMapping("/completed")
+    public String updateCompletedStatus(@RequestParam("todoId") long id) {
+        Todo todo = todoRepository.findById(id).orElse(null);
+        if (todo != null) {
+            todo.setCompleted(!todo.isCompleted());
+            todoRepository.save(todo);
+        }
+        return "redirect:/user/todo";
+    }
 }
